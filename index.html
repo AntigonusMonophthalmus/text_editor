@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>text editor</title>
+   
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="toolbar">
+
+  <div class="toolbar-group">
+    <div class="dropdown">
+      <button id="fileMenuBtn">File ▾</button>
+<div class="dropdown-menu" id="fileDropdown">
+  <!-- Document management -->
+ <button id="clearbtn">📄 New document</button>
+<button id="openFileManagerFromMenuBtn">📂 Open File Manager</button>
+<button id="importWordBtn">📥 Import Word</button>
+
+<button id="richpdfbtn" title="Save as Rich PDF">📕 Save as Rich PDF</button>
+<button id="exportWordBtn" title="Save as Word (Ctrl+Shift+E)">📘 Save as Word</button>
+<button id="savebtn" title="Save as TXT (Ctrl+S)">📝 Save as TXT</button>
+<button id="savehtmlbtn" title="Save as HTML">🌐 Save as HTML</button>
+
+<button id="saveAsBtn" title="Save with a custom name">💾 Save As…</button>
+  <hr class="dropdown-divider">
+
+
+  <div class="doc-group" style="display:flex; gap:5px; padding:4px 0;">
+
+    <select id="loadDocSelect">
+      <option value="">📋 Load…</option>
+    </select>
+  </div>
+</div>
+    </div>
+    <input type="file" id="wordFileInput" accept=".docx" style="display:none;">
+  </div>
+
+  <span class="toolbar-separator"></span>
+
+
+  <div class="toolbar-group" id="toolbarContainer">
+<button id="undoBtn" title="Undo (Ctrl+Z)">↩️</button>
+<button id="redoBtn" title="Redo (Ctrl+Y)">↪️</button>
+<button id="boldBtn" title="Bold (Ctrl+B)">B</button>
+<button id="italicBtn" title="Italic (Ctrl+I)"><i>I</i></button>
+<button id="underlineBtn" title="Underline (Ctrl+U)"><u>U</u></button>
+<button id="strikeBtn" title="Strikethrough"><s>S</s></button>
+<select id="headingSelect">
+  <option value="p">Normal</option>
+  <option value="h1">Heading 1</option>
+  <option value="h2">Heading 2</option>
+  <option value="h3">Heading 3</option>
+</select>
+<button id="linkBtn" title="Insert link">🔗</button>
+<button id="hrBtn" title="Horizontal line">―</button>
+  </div>
+
+  <span class="toolbar-separator"></span>
+
+  <div class="toolbar-group"  id="mainToolbar">
+    <button id="imageBtn">🖼️ Insert Image</button>
+    <button id="alignLeftBtn" title="Align Left">⬅️</button>
+    <button id="alignCenterBtn" title="Center">⬜</button>
+    <button id="alignRightBtn" title="Align Right">➡️</button>
+    <button id="alignJustifyBtn" title="Justify">⬛</button>
+    <button id="resetImagePosBtn" title="Reset image position">🔄 Reset</button>
+    <button id="highlightBtn" title="Highlight">🖍️</button>
+    <button id="fontColorBtn" title="Text Color">🎨</button>
+    <button id="clearFormatBtn" title="Clear Formatting">🧹</button>
+    <button id="printBtn" title="Print Document (Ctrl+P)">🖨️</button>
+    <button id="bulletListBtn" title="Bulleted List">•</button>
+    <button id="numberListBtn" title="Numbered List">1.</button>
+    <select id="highlightColor" style="width:60px;">
+     
+
+  <option value="#ffff00">🟡</option>
+  <option value="#ff9900">🟠</option>
+  <option value="#ff0000">🔴</option>
+  <option value="#00ff00">🟢</option>
+  <option value="#00ccff">🔵</option>
+  <option value="#ffffff">⬜ (none)</option>
+</select>
+ <input type="color" id="fontColorInput" value="#000000" style="display:none;">
+    <input type="file" id="imageInput" accept="image/*" style="display:none;">
+  </div>
+
+  <span class="toolbar-separator"></span>
+
+
+  <div class="toolbar-group">
+    <label for="fontSelect" class="toolbar-label">
+      Font:
+      <select id="fontSelect">
+        <option value="Times">Times (serif)</option>
+        <option value="Helvetica">Helvetica (sans-serif)</option>
+        <option value="Courier">Courier (monospace)</option>
+      </select>
+    </label>
+    <label for="fontSizeSelect" class="toolbar-label">
+      Size:
+      <select id="fontSizeSelect">
+        <option value="10">10</option>
+        <option value="12">12</option>
+        <option value="14">14</option>
+        <option value="16">16</option>
+        <option value="18">18</option>
+        <option value="20">20</option>
+        <option value="24">24</option>
+        <option value="30">30</option>
+      </select>
+    </label>
+  </div>
+
+  <span class="toolbar-separator"></span>
+
+  <!-- Document & view group -->
+  <div class="toolbar-group">
+<button id="pageNumToggle" title="Toggle Page Numbers in PDF">📄 Page Numbers</button>
+<button id="openFileManagerBtn" title="Open File Manager">📂 Open</button>
+<button id="themeToggle" title="Toggle Dark/Light Mode">🌙</button>
+<button id="openFindReplaceBtn" title="Find & Replace (Ctrl+F)">🔍</button>
+<button id="focusModeBtn" title="Toggle Focus Mode">🧘 Focus</button> 
+<button id="toggleSidebarBtn" title="Show Pages Sidebar">📑</button>
+<button id="insertTableBtn" title="Insert Table">📊</button>
+<button id="cleanDocBtn">🧹 Clean document</button>
+<label for="lineHeightSelect" class="toolbar-label">
+  Line spacing:
+  <select id="lineHeightSelect">
+    <option value="1">1.0</option>
+    <option value="1.15" selected>1.15</option>
+    <option value="1.5">1.5</option>
+    <option value="2">2.0</option>
+    <option value="2.5">2.5</option>
+    <option value="3">3.0</option>
+  </select>
+</label>
+<button id="applyLineHeightAllBtn" title="Apply to entire document" style="margin-left:2px;">📄</button>
+<select id="imageWrapSelect" title="Text wrapping">
+  <option value="">Wrap style</option>
+  <option value="wrap-inline">Inline</option>
+  <option value="wrap-square">Square</option>
+  <option value="wrap-front">In front of text</option>
+</select>
+<label style="margin-left:10px; display:none;" id="imagePosLabel">
+  Pos:
+  <input type="number" id="imageLeft" style="width:55px;" step="1" title="Left (px)">
+  x
+  <input type="number" id="imageTop" style="width:55px;" step="1" title="Top (px)">
+</label>
+<span id="currentDocName" style="font-size: 12px; color: #666; margin-left: 10px; align-self: center;"></span>
+ 
+
+</div>
+
+
+ <span id="saveIndicator" style="visibility: hidden; font-size: 12px; color: #888; margin-left: auto;">Saved ✓</span>
+</div>
+
+
+
+<div class = "editor-container" id="pagesContainer">
+  <div class="page" contenteditable="true" data-placeholder="Here you can write"></div>
+</div>
+<input type="file" id="fileInput" accept=".txt" style="display: none;">
+
+
+  <div id="counter-container">
+  <span id="counter" >
+  Words: 0 | Characters: 0
+</span>
+<span id ="pageCounter" style="margin-left: 20px;">
+  Page 1 of 1
+</span>
+
+</div>
+<div id="pageSidebar" class="sidebar-closed">
+  <div class="sidebar-header">
+    <h3>📑 Pages</h3>
+    <button id="closeSidebarBtn">✕</button>
+  </div>
+  <ul id="pageList"></ul>
+</div>
+
+
+ <div id="exportIndicator" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#333; color:#fff; padding:12px 24px; border-radius:6px; font-family:'Inter',sans-serif; z-index:1000;">
+  Exporting PDF…
+</div>
+
+
+
+<div id="fileManagerModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:#fff; width:400px; max-width:90%; border-radius:8px; padding:20px; font-family:'Inter',sans-serif; max-height:80vh; overflow-y:auto;">
+    <h3 style="margin-top:0;">📂 File Manager</h3>
+    <input type="text" id="fileSearch" placeholder="Search documents…" style="width:100%; padding:6px 10px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px; font-family:'Inter',sans-serif; font-size:14px;">
+    <select id="sortSelect" style="width:100%; padding:6px 10px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px; font-family:'Inter',sans-serif; font-size:14px;">
+  <option value="date-desc" selected>Date (newest first)</option>
+  <option value="date-asc">Date (oldest first)</option>
+  <option value="name-asc">Name (A → Z)</option>
+  <option value="name-desc">Name (Z → A)</option>
+</select>
+    
+    <ul id="fileList" style="list-style:none; padding:0; margin:0 0 15px 0;"></ul>
+    <button id="newDocFromModalBtn" style="width:100%; margin-bottom:10px;">+ New Document</button>
+    <button id="deleteCurrentDocBtn" style="width:100%; margin-bottom:10px; background:#d9534f; color:#fff; border:none;">🗑️ Delete Current Document</button>
+   <button id="downloadAllBtn" style="width:100%; margin-bottom:10px;">⬇️ Download All Documents</button>
+    <button id="deleteAllDocsBtn" style="width:100%; margin-bottom:10px; background:#c9302c; color:#fff; border:none;">🗑️ Delete All Documents</button>
+    <button id="closeModalBtn" style="width:100%;">Close</button>
+  </div>
+</div>
+
+<div id="findReplaceModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0); z-index:1001; pointer-events:none;">
+  <div id="findReplaceInner" style="position:absolute; top:40px; left:50%; transform:translateX(-50%); background:#fff; width:420px; max-width:90%; border:2px solid #333; border-radius:8px; font-family:'Inter',sans-serif; pointer-events:auto;">
+
+    <!-- Drag handle -->
+    <div id="findDragHandle" style="height:20px; cursor:move; background:#eee; border-bottom:1px solid #ccc; text-align:center; font-size:12px; user-select:none; border-radius:8px 8px 0 0;">
+      ⋮⋮ Drag to move ⋮⋮
+    </div>
+
+    <div style="padding:20px;">
+      <h3 style="margin-top:0;">🔍 Find & Replace</h3>
+      <input type="text" id="searchInput" placeholder="Find…" style="width:100%; padding:6px 10px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px; font-size:14px;">
+      <input type="text" id="replaceInput" placeholder="Replace with…" style="width:100%; padding:6px 10px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px; font-size:14px;">
+      <label style="display:flex; align-items:center; gap:5px; margin-bottom:10px; font-size:14px;">
+        <input type="checkbox" id="caseSensitive"> Match case
+      </label>
+      <div id="searchStatus" style="font-size:13px; color:#888; margin-bottom:10px;"></div>
+      <div style="display:flex; gap:5px; flex-wrap:wrap;">
+        <button id="findNextBtn" style="flex:1;">Find Next</button>
+        <button id="replaceBtn" style="flex:1;">Replace</button>
+        <button id="replaceAllBtn" style="flex:1;">Replace All</button>
+        <button id="closeFindBtn" style="flex:1;">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Table context toolbar -->
+<div id="tableToolbar" style="display:none; position:absolute; z-index:1100; background:#fff; border:1px solid #ccc; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.15); padding:6px; font-family:'Inter',sans-serif;">
+  <div style="display:flex; gap:4px; flex-wrap:wrap;">
+    <button class="table-action-btn" data-action="insertRowAbove" title="Insert row above">⬆️ Row</button>
+    <button class="table-action-btn" data-action="insertRowBelow" title="Insert row below">⬇️ Row</button>
+    <button class="table-action-btn" data-action="insertColLeft" title="Insert column left">⬅️ Col</button>
+    <button class="table-action-btn" data-action="insertColRight" title="Insert column right">➡️ Col</button>
+    <button class="table-action-btn" data-action="deleteRow" title="Delete row">🗑️ Row</button>
+    <button class="table-action-btn" data-action="deleteCol" title="Delete column">🗑️ Col</button>
+    <button class="table-action-btn" data-action="deleteTable" title="Delete table">❌ Table</button>
+    <button class="table-action-btn" data-action="mergeCells" title="Merge selected cells">🔗 Merge</button>
+    <button class="table-action-btn" data-action="splitCell" title="Split cell">🔓 Split</button>
+    <button class="table-action-btn" data-action="deleteCells" title="Delete selected cells">🗑️ Cells</button>
+    <div id="columnRuler" style="display:none; position:absolute; z-index:1100; background:#f0f0f0; border:1px solid #ccc; border-bottom:none; border-radius:4px 4px 0 0; height:20px; box-shadow:0 -1px 4px rgba(0,0,0,0.1);">
+    <div id="rulerMarkers" style="display:flex; height:100%; position:relative;"></div>
+    <div id="rowRuler" style="display:none; position:absolute; z-index:1100; background:#f0f0f0; border:1px solid #ccc; border-right:none; border-radius:4px 0 0 4px; width:20px; box-shadow:-1px 0 4px rgba(0,0,0,0.1);">
+    <div id="rowMarkers" style="position:relative; width:100%; height:100%;"></div>
+    <div id="tableResizeHandle" style="display:none; position:absolute; z-index:1100; width:12px; height:12px; background:#4a90d9; border:1px solid #fff; cursor:nwse-resize; box-shadow:0 0 2px rgba(0,0,0,0.3);"></div>
+      <div id="tableMoveHandle" style="display:none; position:absolute; z-index:1100; width:14px; height:14px; background:#fff; border:2px solid #4a90d9; cursor:move; box-shadow:0 0 2px rgba(0,0,0,0.3); border-radius:2px;">
+  <!-- cross arrows icon (simple) -->
+  <span style="display:block; text-align:center; line-height:10px; font-size:10px; color:#4a90d9;">⤡</span>
+</div>
+
+
+  </div>
+
+  </div>
+  </div>
+</div>
+
+
+<script src="index.umd.js"></script>
+<script src="mammoth.browser.min.js"></script>
+<script src="jspdf.umd.min.js"></script>
+<script src="umd.js"></script>
+<script src="jszip.min.js"></script>
+<script src = "script.js"></script>
+</body>
+</html>

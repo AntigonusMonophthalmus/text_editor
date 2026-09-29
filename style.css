@@ -1,0 +1,1006 @@
+﻿* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #e8e8e8;
+  display: flex;
+  flex-direction: column;     
+  justify-content: flex-start;  
+  align-items: center;        
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+}
+
+/* ═══════════════════════════════════════ */
+/*  TOOLBAR                              */
+/* ═══════════════════════════════════════ */
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  /* ── Sticky toolbar ── */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #e8e8e8;     
+  padding: 10px 0;
+}
+
+.toolbar button {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.toolbar button:hover {
+  background: #e0e0e0;
+}
+
+.toolbar button.active {
+  background: #0078d4;
+  color: #fff;
+  border-color: #0078d4;
+}
+
+.toolbar select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  background: #f5f5f5;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+#fileMenuBtn {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+#fileMenuBtn:hover {
+  background: #e0e0e0;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+  min-width: 160px;
+  margin-top: 4px;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background: #f0f0f0;
+}
+
+/* Formatting button active state */
+.format-group button.active {
+  background: #0078d4;
+  color: #fff;
+  border-color: #0078d4;
+}
+#fontColorBtn {
+  position: relative;
+  padding-bottom: 12px;   /* make room for the bar */
+}
+
+#fontColorBtn::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 3px;
+  height: 3px;
+  background: var(--current-color, #000);
+  border-radius: 1px;
+}
+.toolbar-label {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ═══════════════════════════════════════ */
+/*  COUNTER                              */
+/* ═══════════════════════════════════════ */
+
+#counter-container {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #777;
+}
+
+#counter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* ═══════════════════════════════════════ */
+/*  EDITOR CONTAINER & PAGES             */
+/* ═══════════════════════════════════════ */
+
+.editor-container {
+  width: 210mm;
+  max-width: 100%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;                 
+  padding: 20px 0;
+  max-height: 80vh;          
+  overflow-y: auto;
+  background: transparent;   
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* Individual A4 page */
+.page {
+  text-align: left; 
+  width: 210mm;
+  height: 297mm;
+  flex-shrink: 0;            
+  background: #ffffff;
+  padding: 25mm 20mm;
+  font-size: 12pt;
+  line-height: 1.6;
+  color: #1a1a1a;
+  font-family: 'Times New Roman', Times, serif;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+  outline: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;          
+  position: relative;
+}
+
+/* Placeholder for empty pages */
+.page:empty::before {
+  content: attr(data-placeholder);
+  color: #aaa;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════ */
+/*  DARK MODE OVERRIDES                    */
+/* ═══════════════════════════════════════ */
+
+body.dark {
+  background: #1e1e1e;
+}
+
+body.dark .toolbar button,
+body.dark .toolbar select,
+body.dark #fileMenuBtn {
+  background: #333;
+  color: #ddd;
+  border-color: #555;
+}
+
+body.dark .toolbar button:hover,
+body.dark #fileMenuBtn:hover {
+  background: #444;
+}
+
+body.dark .toolbar button.active {
+  background: #0078d4;
+  color: #fff;
+}
+
+body.dark .dropdown-menu {
+  background: #333;
+  border-color: #555;
+}
+
+body.dark .dropdown-menu button {
+  color: #ddd;
+}
+
+body.dark .dropdown-menu button:hover {
+  background: #444;
+}
+
+body.dark .toolbar-label {
+  color: #ddd;
+}
+body.dark .page {
+  background: #2d2d2d;
+  color: #e0e0e0;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+}
+
+/* Placeholder in dark mode */
+body.dark .page:empty::before {
+  color: #777;
+}
+
+body.dark #counter {
+  color: #aaa;
+}
+
+.image-wrapper {
+  display: inline-block;
+  position: relative;
+  resize: both;              
+  overflow: auto;
+  max-width: 100%;            
+  vertical-align: top;       
+  margin: 10px 0;
+}
+
+.image-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+.image-wrapper.align-left {
+  float: left;
+  margin-right: 10px;
+  max-width: 100%;
+}
+
+.image-wrapper.align-right {
+  float: right;
+  margin-left: 10px;
+  max-width: 100%;
+}
+.image-wrapper.align-center {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+.image-wrapper.image-selected {
+  outline: 2px solid #0078d4;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.toolbar-separator {
+  display: inline-block;
+  width: 1px;
+  height: 24px;
+  background: #ccc;
+  margin: 0 6px;
+  align-self: center;
+}
+
+body.dark .toolbar-separator {
+  background: #555;
+}
+
+.dropdown-section {
+  padding: 4px 0;
+}
+
+.dropdown-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 4px 0;
+}
+
+body.dark .dropdown-divider {
+  border-top-color: #555;
+}
+
+/* ── Dark mode for File Manager modal ── */
+body.dark #fileManagerModal > div {
+  background: #2d2d2d !important;       /* dark background */
+  color: #e0e0e0 !important;            /* light text */
+}
+
+body.dark #fileManagerModal h3 {
+  color: #e0e0e0;
+}
+
+body.dark #fileManagerModal button {
+  background: #444;
+  color: #ddd;
+  border: 1px solid #555;
+}
+
+body.dark #fileManagerModal button:hover {
+  background: #555;
+}
+
+body.dark #fileList li {
+  border-bottom-color: #555;
+}
+
+body.dark #fileList small {
+  color: #aaa;
+}
+body.dark .toolbar {
+  background: #1e1e1e;     
+}
+
+body.dark #findReplaceModal > div {
+  border-color: #aaa;
+}
+
+.find-match {
+  background-color: #ffeb3b;   
+  border-radius: 2px;
+  padding: 0 2px;
+  margin: 0 -2px;
+}
+
+body.dark .find-match {
+  background-color: #8b7c00;  
+}
+
+.find-match-current {
+  background-color: #ff9800 !important;  
+
+}
+
+body.dark .find-match-current {
+  background-color: #d47c00 !important;   
+}
+body.dark #findReplaceInner {
+  border-color: #aaa;
+}
+body.dark #findDragHandle {
+  background: #555;
+  border-bottom-color: #666;
+  color: #ccc;
+}
+
+
+
+@media print {
+  /* Hide all UI chrome */
+  .toolbar,
+  #counter-container,
+  #fileManagerModal,
+  #findReplaceModal,
+  #exportIndicator,
+  #saveIndicator,
+  #currentDocName,
+  .custom-selection {
+    display: none !important;
+  }
+
+  
+  .editor-container {
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+ 
+  .page {
+    box-shadow: none !important;
+    border: none !important;
+    page-break-after: always;
+    margin: 0 auto !important;
+    background: white !important;      
+    color: inherit !important;          
+    -webkit-print-color-adjust: exact;  
+    print-color-adjust: exact;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  /* Remove placeholder text */
+  .page:empty::before {
+    content: none !important;
+  }
+
+  /* Keep images visible */
+  .page img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+
+
+  body.dark {
+    background: white !important;
+  }
+}
+.page h1 { font-size: 2em; font-weight: bold; margin: 0.67em 0; }
+.page h2 { font-size: 1.5em; font-weight: bold; margin: 0.75em 0; }
+.page h3 { font-size: 1.17em; font-weight: bold; margin: 0.83em 0; }
+.page a {
+  color: #0066cc;
+  text-decoration: underline;
+}
+.page hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+}
+
+/* Focus mode – hide toolbar and counter, expand editor */
+body.focus-mode #toolbarContainer,
+body.focus-mode #counter-container {
+  display: none;
+}
+
+body.focus-mode .editor-container {
+  height: 100vh;
+  max-height: 100vh;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+
+/* ===== Page Sidebar ===== */
+#pageSidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 220px;
+  height: 100vh;
+  background: #f9f9f9;
+  border-left: 1px solid #ccc;
+  z-index: 500;
+  overflow-y: auto;
+  transition: transform 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  box-shadow: -2px 0 6px rgba(0,0,0,0.05);
+}
+
+/* Closed state – hidden off‑screen */
+#pageSidebar.sidebar-closed {
+  transform: translateX(100%);
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+#closeSidebarBtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#pageList {
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+}
+
+#pageList li {
+  margin-bottom: 10px;
+  cursor: grab;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  background: #fff;
+  transition: border-color 0.1s;
+  position: relative;
+}
+
+#pageList li:active {
+  cursor: grabbing;
+}
+
+#pageList li.drag-over {
+  border-color: #4a90d9;
+  background: #e8f0fe;
+}
+
+.page-thumb {
+  width: 100%;
+  height: 120px;          /* fixed thumbnail height */
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+.page-thumb .thumb-content {
+  transform: scale(0.25);
+  transform-origin: top left;
+  width: 400%;            /* 1 / 0.25 */
+  pointer-events: none;
+  font-size: 16px;        /* original page font size */
+  padding: 20px;
+  box-sizing: border-box;
+  background: white;
+}
+
+.page-number {
+  font-size: 12px;
+  color: #666;
+  padding: 4px 8px;
+}
+
+
+
+/* Dark mode adjustments (if needed) */
+body.dark #pageSidebar {
+  background: #2b2b2b;
+  color: #ddd;
+}
+body.dark .sidebar-header {
+  background: #333;
+  border-bottom-color: #555;
+}
+body.dark .page-thumb .thumb-content {
+  background: #1e1e1e;
+  color: #ddd;
+}
+.page-actions {
+  display: flex;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #f0f0f0;
+  border-top: 1px solid #ddd;
+}
+
+.page-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: background 0.1s;
+}
+
+.page-actions button:hover {
+  background: #e0e0e0;
+}
+
+body.dark .page-actions {
+  background: #3a3a3a;
+  border-top-color: #555;
+}
+
+body.dark .page-actions button:hover {
+  background: #555;
+}
+
+#pageList li.active-page {
+  border: 2px solid #4a90d9;
+  background: #e8f0fe;
+}
+
+body.dark #pageList li.active-page {
+  border-color: #66aaff;
+  background: #2a3a4a;
+}
+
+.page table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 0;
+  table-layout: fixed;
+  word-wrap: break-word;
+  overflow-wrap: break-word;       
+}
+
+.page table td,
+.page table th {
+  border: 1px solid #aaa;
+  padding: 8px;
+  min-width: 20px;
+  vertical-align: top;
+  font-size: inherit;  
+   overflow: hidden;     
+  text-overflow: ellipsis;       
+}
+
+/* Dark mode tweak */
+body.dark .page table td,
+body.dark .page table th {
+  border-color: #555;
+}
+
+/* Table toolbar buttons */
+.table-action-btn {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.table-action-btn:hover {
+  background: #e0e0e0;
+}
+
+body.dark .table-action-btn {
+  background: #444;
+  border-color: #666;
+  color: #eee;
+}
+
+body.dark .table-action-btn:hover {
+  background: #555;
+}
+
+.cell-selected {
+  background-color: #b3d9ff !important;   /* light blue */
+  outline: 2px solid #3399ff !important;
+  outline-offset: -2px;
+}
+/* Column resize handle */
+.col-resize-handle {
+  position: absolute;
+  right: -4px;               /* center the 8px wide hit area */
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  z-index: 5;
+  background: transparent;
+  border-right: 1px solid rgba(0,0,0,0.12);   /* always visible thin line */
+  transition: border-color 0.15s;
+}
+.col-resize-handle:hover {
+  border-right-color: #3399ff;   /* turn blue on hover */
+  background: rgba(51,153,255,0.08);  /* slight glow */
+}
+body.dark .col-resize-handle {
+  border-right-color: rgba(255,255,255,0.15);
+}
+body.dark .col-resize-handle:hover {
+  border-right-color: #66aaff;
+  background: rgba(102,170,255,0.12);
+}
+
+.page table td,
+.page table th {
+  position: relative;   /* add this to your existing td/th rule */
+}
+
+
+#columnRuler {
+
+  border-radius: 0 0 4px 4px;   
+  border-top: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.ruler-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 5;
+  transform: translateX(-50%);
+  border-right: 1px dashed #aaa;
+  transition: background 0.1s;
+}
+
+.ruler-divider:hover {
+  background: rgba(51,153,255,0.15);
+  border-right-color: #3399ff;
+}
+
+body.dark #columnRuler {
+  background: #333;
+  border-color: #555;
+}
+body.dark .ruler-divider {
+  border-right-color: #666;
+}
+body.dark .ruler-divider:hover {
+  background: rgba(102,170,255,0.2);
+  border-right-color: #66aaff;
+}
+#rulerMarkers {
+  position: relative;
+  height: 100%;
+  overflow: hidden;   /* prevent child elements from overflowing */
+}
+#rowRuler {
+  font-family: 'Inter', sans-serif;
+}
+
+.row-divider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  cursor: row-resize;
+  background: transparent;
+  z-index: 5;
+  transform: translateY(-50%);
+  border-bottom: 1px dashed #aaa;
+  transition: background 0.1s;
+}
+
+.row-divider:hover {
+  background: rgba(51,153,255,0.15);
+  border-bottom-color: #3399ff;
+}
+
+body.dark #rowRuler {
+  background: #333;
+  border-color: #555;
+}
+body.dark .row-divider {
+  border-bottom-color: #666;
+}
+body.dark .row-divider:hover {
+  background: rgba(102,170,255,0.2);
+  border-bottom-color: #66aaff;
+}
+
+.ruler-edge-handle {
+  position: absolute;
+  z-index: 6;
+  background: transparent;
+  transition: background 0.1s;
+}
+
+/* Left/right edge handles on column ruler */
+#columnRuler .ruler-edge-handle {
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: col-resize;
+  border-right: 1px dashed #aaa;   /* will be overridden for left/right */
+}
+
+#columnRuler .ruler-edge-left {
+  left: -3px;
+  border-right: 1px dashed #aaa;
+}
+
+#columnRuler .ruler-edge-right {
+  right: -3px;
+  border-left: 1px dashed #aaa;
+}
+
+#columnRuler .ruler-edge-handle:hover {
+  background: rgba(51,153,255,0.15);
+}
+
+body.dark #columnRuler .ruler-edge-handle:hover {
+  background: rgba(102,170,255,0.2);
+}
+
+/* Top edge handle on row ruler */
+#rowRuler .ruler-edge-handle {
+  left: 0;
+  right: 0;
+  height: 6px;
+  cursor: row-resize;
+  border-bottom: 1px dashed #aaa;
+  top: -3px;
+}
+
+#rowRuler .ruler-edge-handle:hover {
+  background: rgba(51,153,255,0.15);
+}
+
+body.dark #rowRuler .ruler-edge-handle:hover {
+  background: rgba(102,170,255,0.2);
+}
+
+#tableMoveHandle {
+  border-radius: 2px;
+  transition: background 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#tableMoveHandle:hover {
+  background: #e6f0ff;
+}
+body.dark #tableMoveHandle {
+  background: #555;
+  border-color: #66aaff;
+}
+body.dark #tableMoveHandle:hover {
+  background: #666;
+}
+
+.image-wrapper {
+  position: relative;   /* already set for offset */
+}
+.image-move-handle {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.image-wrapper:hover .image-move-handle {
+  opacity: 1;
+}
+.image-wrapper, .image-wrapper * {
+  -webkit-user-drag: none;
+  user-select: none;  
+}
+
+.image-wrapper.wrap-inline {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 4px;
+}
+
+.image-wrapper.wrap-square {
+  float: left;
+  margin: 0 12px 12px 0;
+}
+
+.image-wrapper.wrap-front {
+  position: absolute !important;
+  z-index: 10;
+  resize: both;
+  overflow: auto;
+}
+
+/* Move handle always visible on hover, but hidden for inline/square */
+.image-wrapper.wrap-inline .image-move-handle,
+.image-wrapper.wrap-square .image-move-handle {
+  display: none !important;
+}
+
+.image-wrapper.wrap-front .image-move-handle {
+  display: flex !important;  
+}
+
+
+.image-wrapper.wrap-behind .image-move-handle,
+.image-wrapper.wrap-front .image-move-handle {
+  display: flex;
+}
+.image-wrapper.wrap-inline .image-move-handle,
+.image-wrapper.wrap-square .image-move-handle {
+  display: none;               
+}
+.image-wrapper.dragging {
+  outline: 2px dashed #4a90d9;
+  outline-offset: 2px;
+  transform: scale(1.02);
+  z-index: 100;
+  
+}
+.image-move-handle {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 28px;
+  height: 28px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #333;
+  z-index: 11;
+  opacity: 0;
+  transition: opacity 0.15s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  -webkit-user-drag: none;
+  user-select: none;
+ 
+
+}
+
+.image-wrapper:hover .image-move-handle,
+.image-wrapper.dragging .image-move-handle {
+  opacity: 1;
+}
+.image-wrapper {
+  transition: left 0.1s ease, top 0.1s ease;
+}
+
+.image-wrapper.dragging {
+  transition: none;   
+}
+.image-wrapper {
+  max-width: 100%;       
+}
+
+.image-wrapper img {
+  max-width: 100%;          
+  height: auto;            
+}
+.image-wrapper.wrap-front .image-move-handle {
+  opacity: 1 !important;      /* always visible */
+  display: flex !important;
+}
+.image-wrapper.wrap-inline .image-move-handle,
+.image-wrapper.wrap-square .image-move-handle {
+  display: none !important;
+}
+
+/* Keep the move handle always visible on front images */
+.image-wrapper.wrap-front .image-move-handle {
+  opacity: 1 !important;
+  display: flex !important;
+}
+
+#imagePosLabel {
+  display: none;
+}
